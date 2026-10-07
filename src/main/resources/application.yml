@@ -1,0 +1,34 @@
+spring:
+  application:
+    name: billiard-app
+  datasource:
+    url: jdbc:postgresql://localhost:5432/billiard_db
+    username: postgres
+    password: hieu1102
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: false
+        jdbc:
+          time_zone: UTC
+  flyway:
+    enabled: false
+    locations: classpath:db/migration
+    baseline-on-migrate: false 
+
+server:
+  port: ${SERVER_PORT:8080}
+
+app:
+  jwt:
+    secret: ${JWT_SECRET:dev-only-local-secret-key-please-change-in-production-min-32-bytes}
+    expiration-ms: ${JWT_EXPIRATION_MS:86400000}
+
+logging:
+  level:
+    com.billiard.app: INFO
+    org.springframework.security: WARN

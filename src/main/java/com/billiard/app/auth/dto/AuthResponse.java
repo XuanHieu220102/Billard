@@ -1,0 +1,12 @@
+package com.billiard.app.auth.dto;
+
+import java.util.UUID;
+
+public record AuthResponse(
+        String token,
+        UUID userId,
+        UUID shopId,
+        String shopName,
+        String phoneNumber
+) {
+}
