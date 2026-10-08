@@ -2,9 +2,9 @@ spring:
   application:
     name: billiard-app
   datasource:
-    url: jdbc:postgresql://localhost:5432/billiard_db
-    username: postgres
-    password: hieu1102
+    url: ${DB_URL:jdbc:postgresql://ep-blue-bonus-b4yfazjl-pooler.c-6.us-east-2.aws.neon.tech/neondb?sslmode=require&channel_binding=require}
+    username: ${DB_USERNAME:neondb_owner}
+    password: ${DB_PASSWORD:npg_lgu8kI2KqvQa}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
@@ -16,9 +16,9 @@ spring:
         jdbc:
           time_zone: UTC
   flyway:
-    enabled: false
+    enabled: true
     locations: classpath:db/migration
-    baseline-on-migrate: false 
+    baseline-on-migrate: true
 
 server:
   port: ${SERVER_PORT:8080}
