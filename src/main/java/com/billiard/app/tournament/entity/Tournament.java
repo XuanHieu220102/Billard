@@ -1,4 +1,4 @@
-package com.billiard.app.fooditem.entity;
+package com.billiard.app.tournament.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,18 +14,18 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.math.BigDecimal;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
-@Table(name = "food_items")
+@Table(name = "tournaments")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class FoodItem {
+public class Tournament {
 
     @Id
     private UUID id;
@@ -36,15 +36,20 @@ public class FoodItem {
     @Column(nullable = false)
     private String name;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private BigDecimal price;
+    private TournamentFormat format;
+
+    @Column(name = "event_date")
+    private LocalDate eventDate;
+
+    private String prize;
+
+    private String note;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private FoodItemCategory category;
-
-    @Column(name = "is_active", nullable = false)
-    private boolean isActive;
+    private TournamentStatus status;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt;
@@ -57,10 +62,9 @@ public class FoodItem {
         if (id == null) {
             id = UUID.randomUUID();
         }
-        if (category == null) {
-            category = FoodItemCategory.FOOD;
+        if (status == null) {
+            status = TournamentStatus.DRAFT;
         }
-        isActive = true;
         Instant now = Instant.now();
         createdAt = now;
         updatedAt = now;

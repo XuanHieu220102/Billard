@@ -1,5 +1,6 @@
 package com.billiard.app.fooditem.dto;
 
+import com.billiard.app.fooditem.entity.FoodItemCategory;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -13,6 +14,9 @@ public record CreateFoodItemRequest(
 
         @NotNull(message = "Price is required")
         @Positive(message = "Price must be positive")
-        BigDecimal price
+        BigDecimal price,
+
+        @NotNull(message = "Category is required")
+        FoodItemCategory category
 ) {
 }

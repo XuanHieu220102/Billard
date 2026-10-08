@@ -12,6 +12,7 @@ public class FoodItemMapper {
                 item.getId(),
                 item.getName(),
                 item.getPrice(),
+                item.getCategory(),
                 item.isActive(),
                 item.getCreatedAt(),
                 item.getUpdatedAt()

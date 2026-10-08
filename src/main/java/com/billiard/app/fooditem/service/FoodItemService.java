@@ -6,6 +6,7 @@ import com.billiard.app.fooditem.dto.CreateFoodItemRequest;
 import com.billiard.app.fooditem.dto.FoodItemResponse;
 import com.billiard.app.fooditem.dto.UpdateFoodItemRequest;
 import com.billiard.app.fooditem.entity.FoodItem;
+import com.billiard.app.fooditem.entity.FoodItemCategory;
 import com.billiard.app.fooditem.mapper.FoodItemMapper;
 import com.billiard.app.fooditem.repository.FoodItemRepository;
 import org.slf4j.Logger;
@@ -34,9 +35,12 @@ public class FoodItemService {
     }
 
     @Transactional(readOnly = true)
-    public List<FoodItemResponse> listFoodItems() {
+    public List<FoodItemResponse> listFoodItems(FoodItemCategory category) {
         UUID shopId = currentShopProvider.getCurrentShopId();
-        return foodItemRepository.findAllByShopIdOrderByNameAsc(shopId).stream()
+        List<FoodItem> items = category != null
+                ? foodItemRepository.findAllByShopIdAndCategoryOrderByNameAsc(shopId, category)
+                : foodItemRepository.findAllByShopIdOrderByNameAsc(shopId);
+        return items.stream()
                 .map(foodItemMapper::toResponse)
                 .toList();
     }
@@ -48,9 +52,10 @@ public class FoodItemService {
                 .shopId(shopId)
                 .name(request.name())
                 .price(request.price())
+                .category(request.category())
                 .build();
         item = foodItemRepository.save(item);
-        log.info("Created food item: id={}, shopId={}", item.getId(), shopId);
+        log.info("Created food item: id={}, shopId={}, category={}", item.getId(), shopId, item.getCategory());
         return foodItemMapper.toResponse(item);
     }
 

@@ -1,9 +1,7 @@
-package com.billiard.app.fooditem.entity;
+package com.billiard.app.tournament.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
@@ -14,18 +12,18 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.UUID;
 
+/** A player name entered by the admin for a tournament — not tied to any user account. */
 @Entity
-@Table(name = "food_items")
+@Table(name = "tournament_participants")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class FoodItem {
+public class TournamentParticipant {
 
     @Id
     private UUID id;
@@ -33,18 +31,15 @@ public class FoodItem {
     @Column(name = "shop_id", nullable = false)
     private UUID shopId;
 
-    @Column(nullable = false)
-    private String name;
+    @Column(name = "tournament_id", nullable = false)
+    private UUID tournamentId;
 
-    @Column(nullable = false)
-    private BigDecimal price;
+    @Column(name = "display_name", nullable = false)
+    private String displayName;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private FoodItemCategory category;
-
-    @Column(name = "is_active", nullable = false)
-    private boolean isActive;
+    /** Entry order as typed by the admin — preserved for display, unrelated to bracket seeding. */
+    @Column(name = "display_order", nullable = false)
+    private int displayOrder;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt;
@@ -57,10 +52,6 @@ public class FoodItem {
         if (id == null) {
             id = UUID.randomUUID();
         }
-        if (category == null) {
-            category = FoodItemCategory.FOOD;
-        }
-        isActive = true;
         Instant now = Instant.now();
         createdAt = now;
         updatedAt = now;

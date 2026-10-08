@@ -43,4 +43,12 @@ public final class ErrorCode {
     public static final String INVOICE_NOT_FOUND = "INVOICE_NOT_FOUND";
     public static final String INVOICE_ALREADY_PAID = "INVOICE_ALREADY_PAID";
     public static final String INVALID_DISCOUNT_PERCENT = "INVALID_DISCOUNT_PERCENT";
+
+    // Tournament
+    public static final String TOURNAMENT_NOT_FOUND = "TOURNAMENT_NOT_FOUND";
+    public static final String TOURNAMENT_NOT_EDITABLE = "TOURNAMENT_NOT_EDITABLE";
+    public static final String TOURNAMENT_INVALID_PARTICIPANT_COUNT = "TOURNAMENT_INVALID_PARTICIPANT_COUNT";
+    public static final String TOURNAMENT_MATCH_NOT_FOUND = "TOURNAMENT_MATCH_NOT_FOUND";
+    public static final String TOURNAMENT_MATCH_NOT_READY = "TOURNAMENT_MATCH_NOT_READY";
+    public static final String TOURNAMENT_INVALID_WINNER = "TOURNAMENT_INVALID_WINNER";
 }
